@@ -1,0 +1,1761 @@
+/* ============================================================
+   ENHANCEMENTS — Dark Mode, Animations, Sidebar Collapse,
+   Input Spacing, Language/FAQ, Search History
+   ============================================================ */
+
+/* ── CSS Variables for Dark/Light Mode ── */
+:root {
+    --transition-speed: 0.3s;
+    --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   GLOBAL INPUT ICON SPACING FIX — definitive, covers all pages
+   ============================================================ */
+
+/* Every icon inside an input-wrapper */
+.input-wrapper .input-icon {
+    position: absolute !important;
+    left: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 16px !important;
+    text-align: center !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+    font-size: 14px !important;
+    color: var(--text-muted, #9ca3af) !important;
+}
+
+/* All inputs/selects inside a wrapper get enough left padding */
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
+    padding-left: 48px !important;
+}
+
+/* Auth pages — standalone inputs that also have an icon sibling */
+.auth-form .input-wrapper input,
+.auth-form .input-wrapper select {
+    padding-left: 48px !important;
+}
+
+/* Password toggle button — keep it from overlapping text */
+.input-wrapper .toggle-password {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    color: var(--text-muted, #9ca3af) !important;
+    cursor: pointer !important;
+    padding: 4px !important;
+    font-size: 14px !important;
+    z-index: 2 !important;
+}
+
+/* Search bars — icon + input spacing */
+.search-filter i,
+.search-wrapper i,
+.contacts-search i,
+.new-chat-search-wrap i {
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+.search-filter input  { padding-left: 44px !important; }
+.search-wrapper input { padding-left: 44px !important; }
+.contacts-search input      { padding-left: 42px !important; }
+.new-chat-search-wrap input { padding-left: 42px !important; }
+
+/* ============================================================
+   DARK MODE — comprehensive text + background coverage
+   ============================================================ */
+body.dark-mode {
+    --bg-primary:    #0f172a;
+    --bg-secondary:  #1e293b;
+    --bg-card:       #1e293b;
+    --text-primary:  #f1f5f9;
+    --text-secondary:#cbd5e1;
+    --text-muted:    #94a3b8;
+    --border:        #334155;
+    --border-light:  #1e293b;
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+/* Force ALL text to light in dark mode */
+body.dark-mode,
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode p, body.dark-mode span, body.dark-mode label,
+body.dark-mode li, body.dark-mode td, body.dark-mode th,
+body.dark-mode .page-header h1, body.dark-mode .page-header p,
+body.dark-mode .card-header h3, body.dark-mode .stat-value,
+body.dark-mode .stat-label, body.dark-mode .nav-section-title,
+body.dark-mode .sidebar-name, body.dark-mode .user-name,
+body.dark-mode .user-role, body.dark-mode .notif-title,
+body.dark-mode .notif-msg, body.dark-mode .contact-name-row strong,
+body.dark-mode .contact-last-msg, body.dark-mode .apt-engineer strong,
+body.dark-mode .apt-service, body.dark-mode .apt-date,
+body.dark-mode .detail-label, body.dark-mode .detail-value,
+body.dark-mode .info-row span, body.dark-mode .info-row strong,
+body.dark-mode .tracking-conf-code strong,
+body.dark-mode .profile-name-row h1, body.dark-mode .profile-specialization,
+body.dark-mode .eng-basic-info h3, body.dark-mode .eng-specialization,
+body.dark-mode .company-profile-info h2,
+body.dark-mode .settings-card-header h3,
+body.dark-mode .faq-question, body.dark-mode .faq-answer,
+body.dark-mode .timeline-header strong, body.dark-mode .timeline-content p,
+body.dark-mode .welcome-text h1, body.dark-mode .welcome-text p {
+    color: #f1f5f9 !important;
+}
+
+/* Muted text stays slightly dimmer */
+body.dark-mode .text-muted,
+body.dark-mode .stat-label,
+body.dark-mode .user-role,
+body.dark-mode .notif-msg,
+body.dark-mode .notif-time,
+body.dark-mode .contact-last-msg,
+body.dark-mode .apt-date span,
+body.dark-mode .detail-label,
+body.dark-mode .nav-section-title,
+body.dark-mode .page-header p,
+body.dark-mode .faq-answer,
+body.dark-mode .timeline-content p,
+body.dark-mode small {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .app-header {
+    background: #1e293b !important;
+    border-bottom-color: #334155 !important;
+}
+body.dark-mode .header-brand { color: #60a5fa !important; }
+body.dark-mode .brand-icon-sm { background: linear-gradient(135deg,#1e40af,#2d6a9f) !important; }
+
+body.dark-mode .sidebar {
+    background: #1e293b !important;
+    border-right-color: #334155 !important;
+}
+body.dark-mode .sidebar-header { border-bottom-color: #334155 !important; }
+body.dark-mode .sidebar-footer { border-top-color: #334155 !important; }
+
+body.dark-mode .nav-item { color: #cbd5e1 !important; }
+body.dark-mode .nav-item:hover { background: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .nav-item.active { background: rgba(45,106,159,0.25) !important; color: #60a5fa !important; }
+body.dark-mode .nav-item.active::before { background: #60a5fa !important; }
+
+body.dark-mode .main-content { background: #0f172a !important; }
+
+/* Cards */
+body.dark-mode .dashboard-card,
+body.dark-mode .stat-card,
+body.dark-mode .booking-card,
+body.dark-mode .settings-card,
+body.dark-mode .profile-section-card,
+body.dark-mode .tracking-info-card,
+body.dark-mode .payment-card,
+body.dark-mode .feedback-card,
+body.dark-mode .feedback-container .feedback-card,
+body.dark-mode .engineer-card-page,
+body.dark-mode .company-detail,
+body.dark-mode .companies-list,
+body.dark-mode .tracking-list,
+body.dark-mode .tracking-detail,
+body.dark-mode .admin-list,
+body.dark-mode .admin-detail,
+body.dark-mode .profile-hero,
+body.dark-mode .engineer-profile-banner,
+body.dark-mode .schedule-calendar-wrapper,
+body.dark-mode .notif-page-card,
+body.dark-mode .profile-edit-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+body.dark-mode .card-header,
+body.dark-mode .notif-header,
+body.dark-mode .settings-card-header { border-color: #334155 !important; }
+
+/* Inputs */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder { color: #64748b !important; }
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.15) !important;
+}
+
+/* Dropdowns */
+body.dark-mode .notif-panel,
+body.dark-mode .user-menu,
+body.dark-mode .lang-dropdown,
+body.dark-mode .faq-dropdown,
+body.dark-mode .search-history-dropdown {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .notif-item:hover,
+body.dark-mode .user-menu a:hover,
+body.dark-mode .lang-option:hover,
+body.dark-mode .faq-item:hover,
+body.dark-mode .search-history-item:hover { background: #334155 !important; }
+body.dark-mode .notif-item.unread { background: rgba(45,106,159,0.2) !important; }
+body.dark-mode .user-menu a { color: #cbd5e1 !important; }
+body.dark-mode .logout-link { color: #f87171 !important; }
+
+/* Tables */
+body.dark-mode .data-table th { background: #0f172a !important; color: #94a3b8 !important; border-color: #334155 !important; }
+body.dark-mode .data-table td { border-color: #334155 !important; color: #cbd5e1 !important; }
+body.dark-mode .data-table tr:hover td { background: #334155 !important; }
+
+/* Filter bars */
+body.dark-mode .filter-select,
+body.dark-mode .search-filter input,
+body.dark-mode .search-wrapper input { background: #1e293b !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+
+/* Modals */
+body.dark-mode .modal { background: #1e293b !important; }
+body.dark-mode .modal-overlay { background: rgba(0,0,0,0.75) !important; }
+
+/* Misc */
+body.dark-mode .appointment-item { background: #0f172a !important; }
+body.dark-mode .quick-action-btn { background: #0f172a !important; color: #f1f5f9 !important; }
+body.dark-mode .quick-action-btn:hover { background: #334155 !important; }
+body.dark-mode .profile-cover { background: linear-gradient(135deg,#0f2540,#1e3a5f,#2d6a9f) !important; }
+body.dark-mode .welcome-banner { background: linear-gradient(135deg,#0f2540,#1a3c5e) !important; }
+body.dark-mode .back-nav a { background: #1e293b !important; border-color: #334155 !important; color: #60a5fa !important; }
+body.dark-mode .back-nav a:hover { background: #334155 !important; }
+body.dark-mode .filter-tab { color: #94a3b8 !important; }
+body.dark-mode .filter-tab.active,
+body.dark-mode .filter-tab:hover { background: #334155 !important; color: #60a5fa !important; }
+body.dark-mode .filter-tabs { background: #0f172a !important; }
+body.dark-mode .status-badge.pending   { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .status-badge.confirmed { background: #1e3a5f !important; color: #60a5fa !important; }
+body.dark-mode .status-badge.completed { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .status-badge.cancelled { background: #450a0a !important; color: #f87171 !important; }
+body.dark-mode .status-badge.in_progress { background: #2e1065 !important; color: #c084fc !important; }
+body.dark-mode .notif-toast { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .notif-toast-body strong { color: #f1f5f9 !important; }
+body.dark-mode .notif-toast-body p { color: #94a3b8 !important; }
+
+/* Chat dark mode */
+body.dark-mode .contacts-panel { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .contacts-header { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .contacts-search { background: #0f172a !important; }
+body.dark-mode .contacts-search input { background: #1e293b !important; color: #f1f5f9 !important; }
+body.dark-mode .contact-item { border-color: #334155 !important; }
+body.dark-mode .contact-item:hover { background: #334155 !important; }
+body.dark-mode .contact-item.active { background: rgba(45,106,159,0.25) !important; }
+body.dark-mode .contact-name-row strong { color: #f1f5f9 !important; }
+body.dark-mode .chat-area { background: #0d1117 !important; }
+body.dark-mode .chat-header { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .chat-header-info strong { color: #f1f5f9 !important; }
+body.dark-mode .chat-input-area { background: #1e293b !important; border-top: 1px solid #334155 !important; }
+body.dark-mode .chat-input-wrapper {
+    background: #0f172a !important;
+    border: 1.5px solid #334155 !important;
+    box-shadow: none !important;
+}
+body.dark-mode #messageInput {
+    color: #f1f5f9 !important;
+    background: transparent !important;
+}
+body.dark-mode #messageInput::placeholder { color: #64748b !important; }
+body.dark-mode .chat-emoji-btn  { color: #94a3b8 !important; }
+body.dark-mode .chat-attach-btn { color: #94a3b8 !important; }
+body.dark-mode .chat-emoji-btn:hover  { color: #f59e0b !important; }
+body.dark-mode .chat-attach-btn:hover { color: #60a5fa !important; }
+body.dark-mode .emoji-picker {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .emoji-picker button:hover { background: #334155 !important; }
+body.dark-mode .recording-indicator { background: #2d1515 !important; border-color: #7f1d1d !important; }
+body.dark-mode .attachment-preview { background: #1e293b !important; }
+body.dark-mode .attach-preview-item { background: #0f172a !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+
+/* Received messages in dark mode */
+body.dark-mode .message-wrapper.received .message-bubble {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+/* Sent messages in dark mode — change from light green to blue so text is visible */
+body.dark-mode .message-wrapper.sent .message-bubble {
+    background: linear-gradient(135deg, #1e40af, #2563eb) !important;
+    color: #ffffff !important;
+}
+
+/* Message meta text */
+body.dark-mode .msg-time { color: #94a3b8 !important; }
+body.dark-mode .msg-tick { color: #60a5fa !important; }
+
+/* Chat welcome screen */
+body.dark-mode .chat-welcome { background: #0f172a !important; }
+body.dark-mode .chat-welcome-inner { background: #1e293b !important; }
+body.dark-mode .chat-welcome-inner h2 { color: #f1f5f9 !important; }
+body.dark-mode .chat-welcome-inner p  { color: #94a3b8 !important; }
+
+/* Chat empty conversation */
+body.dark-mode .chat-empty-conv strong { color: #f1f5f9 !important; }
+body.dark-mode .chat-empty-conv p      { color: #94a3b8 !important; }
+
+/* New chat drawer */
+body.dark-mode .new-chat-drawer { background: #1e293b !important; }
+body.dark-mode .new-chat-search-wrap { background: #0f172a !important; }
+body.dark-mode .new-chat-eng-item { border-color: #334155 !important; }
+body.dark-mode .new-chat-eng-item:hover { background: #334155 !important; }
+body.dark-mode .new-chat-eng-info strong { color: #f1f5f9 !important; }
+body.dark-mode .new-chat-eng-info span   { color: #94a3b8 !important; }
+
+/* Message action toolbar */
+body.dark-mode .message-actions-toolbar { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .msg-action-btn { color: #94a3b8 !important; }
+body.dark-mode .msg-action-btn:hover { background: #334155 !important; color: #f1f5f9 !important; }
+
+/* Reaction chips */
+body.dark-mode .reaction-chip { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .reaction-chip .reaction-count { color: #94a3b8 !important; }
+
+/* Pinned banner */
+body.dark-mode .pinned-message-banner { background: rgba(30,64,175,0.2) !important; border-color: #1e40af !important; color: #60a5fa !important; }
+
+/* Date divider */
+body.dark-mode .date-divider span { background: rgba(30,41,59,0.9) !important; color: #94a3b8 !important; }
+
+/* AI badge */
+body.dark-mode .ai-badge { background: linear-gradient(135deg,#4c1d95,#5b21b6) !important; }
+
+/* File/voice messages */
+body.dark-mode .msg-file { background: #1e293b !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .msg-voice { background: #1e293b !important; border-color: #334155 !important; }
+
+/* Dark mode toggle */
+.dark-mode-toggle {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border: none; background: transparent;
+    color: var(--text-secondary); border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s; font-size: 16px;
+}
+.dark-mode-toggle:hover { background: var(--bg-secondary); color: var(--primary); }
+body.dark-mode .dark-mode-toggle { color: #fbbf24 !important; }
+
+/* ============================================================
+   DASHBOARD ENTRY ANIMATIONS
+   ============================================================ */
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* Apply to dashboard elements */
+.welcome-banner   { animation: fadeSlideUp 0.5s var(--transition-smooth) both; }
+.stats-grid       { animation: fadeSlideUp 0.55s var(--transition-smooth) 0.08s both; }
+.dashboard-grid   { animation: fadeSlideUp 0.6s var(--transition-smooth) 0.16s both; }
+.page-header      { animation: fadeSlideUp 0.45s var(--transition-smooth) both; }
+.filter-bar       { animation: fadeSlideUp 0.5s var(--transition-smooth) 0.06s both; }
+.engineers-grid-page { animation: fadeSlideUp 0.55s var(--transition-smooth) 0.1s both; }
+.companies-layout { animation: fadeSlideUp 0.55s var(--transition-smooth) 0.1s both; }
+.tracking-layout  { animation: fadeSlideUp 0.55s var(--transition-smooth) 0.1s both; }
+.booking-steps    { animation: fadeSlideUp 0.5s var(--transition-smooth) 0.05s both; }
+.booking-card     { animation: scaleIn 0.4s var(--transition-smooth) 0.1s both; }
+.settings-layout  { animation: fadeSlideUp 0.5s var(--transition-smooth) 0.05s both; }
+.profile-hero     { animation: fadeSlideUp 0.5s var(--transition-smooth) both; }
+.profile-tabs     { animation: fadeSlideUp 0.5s var(--transition-smooth) 0.1s both; }
+.profile-content  { animation: fadeSlideUp 0.5s var(--transition-smooth) 0.15s both; }
+
+/* Sidebar: no entry animation — handled by CSS transition in dashboard.css */
+
+/* Card hover lift — global */
+.stat-card:hover,
+.engineer-card-page:hover,
+.service-card:hover,
+.company-card-admin:hover,
+.testimonial-card:hover {
+    transition: transform 0.25s var(--transition-bounce), box-shadow 0.25s ease !important;
+}
+
+/* Button press effect */
+.btn-primary:active,
+.btn-outline:active,
+.btn-next:active,
+.btn-confirm:active,
+.btn-settings-save:active,
+.btn-verify:active,
+.btn-reject:active,
+.chat-send-btn:active {
+    transform: scale(0.96) !important;
+    transition: transform 0.1s ease !important;
+}
+
+/* Nav item transition */
+.nav-item {
+    transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease !important;
+}
+
+/* Tab switch animation */
+.tab-content.active {
+    animation: fadeSlideUp 0.3s var(--transition-smooth) both;
+}
+
+/* Modal open animation */
+.modal { animation: scaleIn 0.25s var(--transition-smooth) both !important; }
+
+/* Alert slide in */
+.alert { animation: fadeSlideUp 0.35s var(--transition-smooth) both; }
+
+/* ── Sidebar collapse: handled entirely in dashboard.css ── */
+/* ── Mobile overlay: handled entirely in dashboard.css ── */
+
+/* ============================================================
+   LANGUAGE SELECTOR
+   ============================================================ */
+.lang-selector {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.lang-btn:hover { border-color: var(--primary); color: var(--primary); background: #f0f7ff; }
+.lang-btn .lang-flag { font-size: 16px; }
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    border: 1px solid var(--border);
+    z-index: 200;
+    min-width: 180px;
+    padding: 6px;
+    animation: dropIn 0.2s ease;
+}
+.lang-dropdown.show { display: block; }
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: background 0.15s;
+}
+.lang-option:hover { background: var(--bg-secondary); color: var(--primary); }
+.lang-option.active { background: #f0f7ff; color: var(--primary); font-weight: 700; }
+.lang-option .flag { font-size: 18px; }
+
+body.dark-mode .lang-dropdown,
+body.dark-mode .faq-dropdown { background: #1e293b; border-color: #334155; }
+body.dark-mode .lang-option:hover,
+body.dark-mode .faq-item:hover { background: #334155; }
+
+/* ============================================================
+   FAQ BUTTON & PANEL
+   ============================================================ */
+.faq-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.2s;
+    position: relative;
+}
+.faq-btn:hover { background: var(--bg-secondary); color: var(--primary); }
+
+.faq-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 380px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+    border: 1px solid var(--border);
+    z-index: 200;
+    overflow: hidden;
+    animation: dropIn 0.2s ease;
+}
+.faq-dropdown.show { display: block; }
+
+.faq-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.faq-header i { color: var(--primary); font-size: 18px; }
+.faq-header h4 { font-size: 15px; font-weight: 800; color: var(--text-primary); }
+.faq-header p  { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+.faq-list { max-height: 360px; overflow-y: auto; }
+.faq-list::-webkit-scrollbar { width: 4px; }
+.faq-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+.faq-item {
+    border-bottom: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-item:hover { background: var(--bg-secondary); }
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    gap: 10px;
+}
+.faq-question i { color: var(--text-muted); font-size: 12px; transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-question i { transform: rotate(180deg); color: var(--primary); }
+.faq-item.open .faq-question { color: var(--primary); }
+
+.faq-answer {
+    display: none;
+    padding: 0 20px 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+.faq-item.open .faq-answer { display: block; animation: fadeSlideUp 0.2s ease both; }
+
+.faq-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+.faq-footer a { font-size: 13px; color: var(--primary); font-weight: 600; text-decoration: none; }
+
+/* ============================================================
+   SEARCH HISTORY DROPDOWN
+   ============================================================ */
+.search-history-wrap {
+    position: relative;
+    flex: 1;
+}
+
+.search-history-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid var(--border);
+    z-index: 300;
+    overflow: hidden;
+    animation: dropIn 0.2s ease;
+    /* Isolate stacking context so parent absolute icons don't bleed in */
+    isolation: isolate;
+}
+.search-history-dropdown.show { display: block; }
+
+.search-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.search-history-header button {
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.search-history-item {
+    display: flex;
+    align-items: center;
+    gap: 0;                  /* use padding instead of gap to avoid icon bleed */
+    padding: 9px 14px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.search-history-item:hover { background: var(--bg-secondary); color: var(--primary); }
+
+/* Clock icon — fixed width box so text never overlaps */
+.search-history-item i {
+    color: var(--text-muted);
+    font-size: 13px;
+    width: 28px;             /* enough room: icon(13px) + breathing space */
+    min-width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+    position: static !important;  /* override any inherited absolute positioning */
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    pointer-events: none;
+}
+
+/* Search text — takes remaining space */
+.search-history-item span {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 0;
+}
+
+.search-history-item .remove-history {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+}
+.search-history-item:hover .remove-history { opacity: 1; }
+
+body.dark-mode .search-history-dropdown { background: #1e293b; border-color: #334155; }
+body.dark-mode .search-history-item:hover { background: #334155; }
+
+/* ============================================================
+   BOOKING CALENDAR — Green/Red date highlighting
+   ============================================================ */
+.calendar-day.available {
+    background: #f0fdf4 !important;
+    color: #166534 !important;
+    font-weight: 600;
+    border: 1.5px solid #bbf7d0;
+}
+.calendar-day.available:hover {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    transform: scale(1.08);
+    transition: all 0.15s ease;
+}
+
+.calendar-day.unavailable {
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    font-weight: 500;
+    border: 1.5px solid #fecaca;
+    cursor: not-allowed !important;
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+
+.calendar-day.selected {
+    background: linear-gradient(135deg, #1a3c5e, #2d6a9f) !important;
+    color: #fff !important;
+    border-color: #1a3c5e !important;
+    font-weight: 700;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(26,60,94,0.35);
+}
+
+.calendar-day.today {
+    border: 2px solid #1a3c5e !important;
+    font-weight: 800;
+}
+
+.calendar-day.disabled {
+    background: #f9fafb !important;
+    color: #d1d5db !important;
+    cursor: not-allowed !important;
+    border: none !important;
+}
+
+/* Updated legend */
+.calendar-legend {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+.legend-dot.available   { background: #22c55e; }
+.legend-dot.unavailable { background: #ef4444; }
+.legend-dot.selected    { background: #1a3c5e; }
+.legend-dot.today       { background: transparent; border: 2px solid #1a3c5e; }
+
+/* ============================================================
+   GOOGLE MAP EMBED IN COMPANIES
+   ============================================================ */
+.company-map-section {
+    margin-top: 24px;
+}
+.company-map-section h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.company-map-section h4 i { color: #ef4444; }
+
+.company-map-container {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow);
+    position: relative;
+}
+.company-map-container iframe {
+    width: 100%;
+    height: 280px;
+    border: none;
+    display: block;
+}
+.company-map-open-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.company-map-open-link:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+body.dark-mode .company-map-container { border-color: #334155; }
+body.dark-mode .company-map-open-link { background: #1e293b; border-color: #334155; }
+
+/* ============================================================
+   SMOOTH INTERACTION TRANSITIONS — Global
+   ============================================================ */
+a, button, input, select, textarea,
+.nav-item, .contact-item, .engineer-card-page,
+.company-list-item, .tracking-item, .admin-list-item,
+.notif-item, .faq-item, .lang-option {
+    transition: all 0.2s var(--transition-smooth);
+}
+
+/* Ripple effect on buttons */
+.btn-primary, .btn-outline, .btn-next, .btn-confirm,
+.btn-settings-save, .btn-verify, .btn-reject, .btn-filter {
+    position: relative;
+    overflow: hidden;
+}
+.btn-primary::after, .btn-outline::after, .btn-next::after,
+.btn-confirm::after, .btn-settings-save::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+}
+.btn-primary:hover::after, .btn-next:hover::after,
+.btn-confirm:hover::after, .btn-settings-save:hover::after { opacity: 1; }
+
+/* Page transition fade */
+.main-content {
+    animation: fadeIn 0.35s ease both;
+}
+
+/* ============================================================
+   DARK MODE — MISSING TEXT FIXES (comprehensive)
+   ============================================================ */
+
+/* Generic catch-all: any element with color set to a dark value */
+body.dark-mode * { color: inherit; }
+
+/* Specific elements that were invisible */
+body.dark-mode .card-link                { color: #60a5fa !important; }
+body.dark-mode .card-link:hover          { color: #93c5fd !important; }
+body.dark-mode .sidebar-role-badge.client   { background: #1e3a5f !important; color: #93c5fd !important; }
+body.dark-mode .sidebar-role-badge.engineer { background: #2e1065 !important; color: #c084fc !important; }
+body.dark-mode .sidebar-role-badge.admin    { background: #450a0a !important; color: #fca5a5 !important; }
+
+/* "View All" links */
+body.dark-mode a.card-link,
+body.dark-mode .notif-footer a,
+body.dark-mode .faq-footer a { color: #60a5fa !important; }
+
+/* "Change Photo" button */
+body.dark-mode .btn-upload-photo { background: #1e293b !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .btn-upload-photo:hover { background: #334155 !important; border-color: #60a5fa !important; color: #60a5fa !important; }
+
+/* "View Profile" in Browse Engineers */
+body.dark-mode .btn-view-profile { border-color: #60a5fa !important; color: #60a5fa !important; }
+body.dark-mode .btn-view-profile:hover { background: #60a5fa !important; color: #0f172a !important; }
+
+/* Engineer card text */
+body.dark-mode .engineer-card-page { background: #1e293b !important; }
+body.dark-mode .eng-basic-info h3  { color: #f1f5f9 !important; }
+body.dark-mode .eng-specialization { color: #94a3b8 !important; }
+body.dark-mode .eng-company        { color: #94a3b8 !important; }
+body.dark-mode .eng-bio            { color: #94a3b8 !important; }
+body.dark-mode .eng-stat           { color: #94a3b8 !important; }
+body.dark-mode .skill-tag          { background: #1e3a5f !important; color: #93c5fd !important; }
+
+/* "Services Offered" section */
+body.dark-mode .services-offered h3      { color: #f1f5f9 !important; }
+body.dark-mode .service-profile-item     { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .svc-info h4              { color: #f1f5f9 !important; }
+body.dark-mode .svc-info span            { color: #94a3b8 !important; }
+body.dark-mode .svc-price                { color: #60a5fa !important; }
+body.dark-mode .svc-icon                 { background: #0f172a !important; }
+
+/* Company names and profile */
+body.dark-mode .company-list-info strong { color: #f1f5f9 !important; }
+body.dark-mode .company-list-info span   { color: #94a3b8 !important; }
+body.dark-mode .company-profile-info h2  { color: #f1f5f9 !important; }
+body.dark-mode .company-description h4   { color: #f1f5f9 !important; }
+body.dark-mode .company-description p    { color: #94a3b8 !important; }
+body.dark-mode .company-services h4      { color: #f1f5f9 !important; }
+body.dark-mode .company-engineers h4     { color: #f1f5f9 !important; }
+body.dark-mode .service-tag              { background: #1e3a5f !important; color: #93c5fd !important; }
+body.dark-mode .company-card-admin       { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .company-card-info h4     { color: #f1f5f9 !important; }
+body.dark-mode .company-card-info span   { color: #94a3b8 !important; }
+body.dark-mode .company-card-desc        { color: #94a3b8 !important; }
+
+/* "Verified" badge */
+body.dark-mode .verified-badge { background: #1e3a5f !important; color: #93c5fd !important; }
+
+/* "Clear All" in search history */
+body.dark-mode .search-history-header button { color: #60a5fa !important; }
+body.dark-mode .search-history-header        { color: #94a3b8 !important; }
+body.dark-mode .search-history-item          { color: #cbd5e1 !important; }
+body.dark-mode .search-history-item i        { color: #64748b !important; }
+body.dark-mode .search-history-item:hover    { color: #f1f5f9 !important; }
+body.dark-mode .search-history-dropdown      { background: #1e293b !important; border-color: #334155 !important; }
+
+/* Availability badges */
+body.dark-mode .eng-availability-badge.available { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .eng-availability-badge.busy      { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .eng-availability-badge.offline   { background: #1e293b !important; color: #94a3b8 !important; }
+
+/* Profile hero */
+body.dark-mode .profile-hero-info h1     { color: #f1f5f9 !important; }
+body.dark-mode .profile-meta-row span    { color: #94a3b8 !important; }
+body.dark-mode .rating-score             { color: #f1f5f9 !important; }
+body.dark-mode .rate-label               { color: #94a3b8 !important; }
+body.dark-mode .rate-value               { color: #60a5fa !important; }
+
+/* Booking steps */
+body.dark-mode .booking-card h3          { color: #f1f5f9 !important; }
+body.dark-mode .step-desc                { color: #94a3b8 !important; }
+body.dark-mode .engineer-select-card     { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .engineer-select-card.selected { background: #1e3a5f !important; border-color: #60a5fa !important; }
+body.dark-mode .eng-select-info strong   { color: #f1f5f9 !important; }
+body.dark-mode .eng-select-info span     { color: #94a3b8 !important; }
+body.dark-mode .service-select-card      { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .service-select-card.selected { background: #1e3a5f !important; border-color: #60a5fa !important; }
+body.dark-mode .svc-select-name          { color: #f1f5f9 !important; }
+body.dark-mode .svc-select-price         { color: #94a3b8 !important; }
+body.dark-mode .summary-label            { color: #94a3b8 !important; }
+body.dark-mode .summary-value            { color: #f1f5f9 !important; }
+body.dark-mode .total-value              { color: #60a5fa !important; }
+body.dark-mode .booking-summary          { background: #0f172a !important; }
+body.dark-mode .booking-note             { background: #1e293b !important; border-color: #334155 !important; color: #94a3b8 !important; }
+
+/* Calendar in dark mode */
+body.dark-mode .calendar-days-header div { color: #94a3b8 !important; }
+body.dark-mode .calendar-header span     { color: #f1f5f9 !important; }
+body.dark-mode .calendar-header button   { background: #1e293b !important; border-color: #334155 !important; color: #94a3b8 !important; }
+body.dark-mode .calendar-day.disabled    { background: #0f172a !important; color: #334155 !important; }
+body.dark-mode .time-slot-card           { background: #1e293b !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .time-slot-card.selected  { background: linear-gradient(135deg,#1a3c5e,#2d6a9f) !important; color: #fff !important; }
+body.dark-mode .time-placeholder         { border-color: #334155 !important; color: #64748b !important; }
+body.dark-mode .ai-suggestion-box        { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .ai-suggestion-box strong { color: #c084fc !important; }
+body.dark-mode .ai-suggestion-box p      { color: #94a3b8 !important; }
+
+/* Tracking page */
+body.dark-mode .tracking-conf-code span  { color: #94a3b8 !important; }
+body.dark-mode .progress-step span       { color: #94a3b8 !important; }
+body.dark-mode .progress-step.completed span,
+body.dark-mode .progress-step.current span { color: #60a5fa !important; }
+body.dark-mode .timeline-content         { background: #0f172a !important; }
+body.dark-mode .timeline-header strong   { color: #f1f5f9 !important; }
+body.dark-mode .timeline-header span     { color: #64748b !important; }
+
+/* Payment page */
+body.dark-mode .payment-method-card      { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .payment-method-card span { color: #f1f5f9 !important; }
+body.dark-mode .payment-method-card.selected { border-color: #60a5fa !important; background: #1e3a5f !important; }
+body.dark-mode .pay-step-header h4       { color: #f1f5f9 !important; }
+body.dark-mode .apt-preview-row span     { color: #94a3b8 !important; }
+body.dark-mode .apt-preview-row strong   { color: #f1f5f9 !important; }
+body.dark-mode .appointment-detail-preview { background: #0f172a !important; border-color: #334155 !important; }
+body.dark-mode .payment-instructions     { background: #0f172a !important; }
+body.dark-mode .pm-instructions h5       { color: #f1f5f9 !important; }
+body.dark-mode .pm-instructions p        { color: #94a3b8 !important; }
+body.dark-mode .pay-hist-info strong     { color: #f1f5f9 !important; }
+body.dark-mode .pay-hist-info span       { color: #94a3b8 !important; }
+body.dark-mode .pay-hist-amount          { color: #60a5fa !important; }
+
+/* Feedback */
+body.dark-mode .feedback-card            { background: #1e293b !important; }
+body.dark-mode .engineer-preview         { background: #0f172a !important; border-color: #334155 !important; }
+body.dark-mode .engineer-preview strong  { color: #f1f5f9 !important; }
+body.dark-mode .engineer-preview span    { color: #94a3b8 !important; }
+body.dark-mode .rating-labels            { color: #64748b !important; }
+
+/* Settings */
+body.dark-mode .settings-nav             { background: #1e293b !important; }
+body.dark-mode .settings-nav-item        { color: #cbd5e1 !important; }
+body.dark-mode .settings-nav-item.active { background: rgba(45,106,159,0.25) !important; color: #60a5fa !important; }
+body.dark-mode .settings-nav-item:hover  { background: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .settings-nav-divider     { background: #334155 !important; }
+body.dark-mode .info-item                { background: #0f172a !important; }
+body.dark-mode .info-item label          { color: #64748b !important; }
+body.dark-mode .info-item span           { color: #f1f5f9 !important; }
+body.dark-mode .avail-option             { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .avail-option.selected    { background: #1e3a5f !important; border-color: #60a5fa !important; }
+body.dark-mode .avail-option strong      { color: #f1f5f9 !important; }
+body.dark-mode .avail-option span        { color: #94a3b8 !important; }
+body.dark-mode .danger-zone              { border-color: #7f1d1d !important; }
+body.dark-mode .danger-zone h4           { color: #f87171 !important; }
+body.dark-mode .danger-zone p            { color: #94a3b8 !important; }
+
+/* Notifications page */
+body.dark-mode .notif-page-item          { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .notif-page-item.unread   { background: rgba(45,106,159,0.2) !important; }
+body.dark-mode .notif-page-title         { color: #f1f5f9 !important; }
+body.dark-mode .notif-page-msg           { color: #94a3b8 !important; }
+body.dark-mode .notif-page-time          { color: #64748b !important; }
+body.dark-mode .notif-page-dot           { background: #60a5fa !important; }
+body.dark-mode .btn-mark-all             { background: #1e3a5f !important; border-color: #334155 !important; color: #60a5fa !important; }
+
+/* Admin pages */
+body.dark-mode .admin-list-item          { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .admin-list-item:hover    { background: #334155 !important; }
+body.dark-mode .admin-list-item.active   { background: rgba(45,106,159,0.25) !important; }
+body.dark-mode .admin-item-info strong   { color: #f1f5f9 !important; }
+body.dark-mode .admin-item-info span     { color: #94a3b8 !important; }
+body.dark-mode .payment-detail-header h3 { color: #f1f5f9 !important; }
+body.dark-mode .detail-section           { background: #0f172a !important; }
+body.dark-mode .detail-section h4        { color: #94a3b8 !important; }
+body.dark-mode .proof-section h4         { color: #f1f5f9 !important; }
+body.dark-mode .verify-actions           { background: #0f172a !important; }
+body.dark-mode .slots-table th           { background: #0f172a !important; color: #94a3b8 !important; }
+body.dark-mode .slots-table td           { color: #cbd5e1 !important; border-color: #334155 !important; }
+body.dark-mode .schedule-filter label    { color: #94a3b8 !important; }
+body.dark-mode .feedback-stat-card       { background: #1e293b !important; }
+body.dark-mode .feedback-stat-card .big-num { color: #f1f5f9 !important; }
+body.dark-mode .feedback-stat-card .big-label { color: #94a3b8 !important; }
+body.dark-mode .engineer-form-card       { background: #1e293b !important; }
+body.dark-mode .engineer-form-card h3    { color: #f1f5f9 !important; }
+
+/* Welcome banner text always white */
+body.dark-mode .welcome-banner *         { color: #fff !important; }
+body.dark-mode .welcome-actions .btn-primary,
+body.dark-mode .welcome-actions .btn-outline { color: #fff !important; }
+
+/* Quick action buttons */
+body.dark-mode .quick-action-btn span    { color: #f1f5f9 !important; }
+
+/* Appointment items */
+body.dark-mode .apt-engineer strong      { color: #f1f5f9 !important; }
+body.dark-mode .apt-engineer span        { color: #94a3b8 !important; }
+body.dark-mode .apt-service              { color: #cbd5e1 !important; }
+body.dark-mode .apt-date                 { color: #cbd5e1 !important; }
+
+/* Empty states */
+body.dark-mode .empty-state h3,
+body.dark-mode .empty-state h4           { color: #94a3b8 !important; }
+body.dark-mode .empty-state p            { color: #64748b !important; }
+
+/* Page header */
+body.dark-mode .page-header h1           { color: #f1f5f9 !important; }
+body.dark-mode .page-header p            { color: #94a3b8 !important; }
+
+/* ── Sidebar: all rules live in dashboard.css — no overrides here ── */
+
+/* ============================================================
+   SEARCH BAR — live filter results visible immediately
+   ============================================================ */
+.search-filter { position: relative; }
+.search-filter input { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.search-filter input:focus {
+    border-color: var(--primary-light) !important;
+    box-shadow: 0 0 0 3px rgba(45,106,159,0.12) !important;
+}
+
+/* Highlight matched text in live results */
+.search-match { background: #fef9c3; border-radius: 2px; }
+body.dark-mode .search-match { background: #422006; color: #fbbf24 !important; }
+
+/* ============================================================
+   CALENDAR — unavailable dates clearly red, not clickable
+   ============================================================ */
+.calendar-day.unavailable {
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    border: 1.5px solid #fecaca !important;
+    cursor: not-allowed !important;
+    text-decoration: line-through !important;
+    opacity: 0.75 !important;
+    pointer-events: none !important;   /* truly not clickable */
+}
+.calendar-day.available {
+    background: #f0fdf4 !important;
+    color: #166534 !important;
+    border: 1.5px solid #bbf7d0 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+.calendar-day.available:hover {
+    background: #dcfce7 !important;
+    border-color: #4ade80 !important;
+    transform: scale(1.08);
+}
+body.dark-mode .calendar-day.unavailable {
+    background: #450a0a !important;
+    color: #fca5a5 !important;
+    border-color: #7f1d1d !important;
+}
+body.dark-mode .calendar-day.available {
+    background: #052e16 !important;
+    color: #4ade80 !important;
+    border-color: #166534 !important;
+}
+
+/* ============================================================
+   DARK MODE — REMAINING TEXT FIXES
+   ============================================================ */
+
+/* "Verified" badge on engineer profile */
+body.dark-mode .verified-badge {
+    background: rgba(30,64,175,0.3) !important;
+    color: #93c5fd !important;
+    border: 1px solid rgba(96,165,250,0.3) !important;
+}
+
+/* "Available" / availability status badges */
+body.dark-mode .availability-status-badge.available { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .availability-status-badge.busy      { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .availability-status-badge.offline   { background: #1e293b !important; color: #94a3b8 !important; }
+body.dark-mode .avail-pill.available { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .avail-pill.busy      { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .avail-pill.offline   { background: #1e293b !important; color: #94a3b8 !important; }
+
+/* "Service" text in profile tabs */
+body.dark-mode .tab-btn { color: #94a3b8 !important; border-bottom-color: transparent !important; }
+body.dark-mode .tab-btn.active { color: #60a5fa !important; border-bottom-color: #60a5fa !important; }
+body.dark-mode .tab-btn:hover  { color: #f1f5f9 !important; }
+body.dark-mode .profile-tabs   { border-color: #334155 !important; background: #1e293b !important; }
+
+/* "Availability" section heading */
+body.dark-mode .availability-section h3 { color: #f1f5f9 !important; }
+body.dark-mode .slot-card { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .slot-day  { color: #94a3b8 !important; }
+body.dark-mode .slot-num  { color: #f1f5f9 !important; }
+body.dark-mode .slot-month{ color: #94a3b8 !important; }
+body.dark-mode .slot-time { color: #94a3b8 !important; }
+body.dark-mode .slot-type-badge { background: #1e3a5f !important; color: #93c5fd !important; }
+
+/* "Reviews" tab content */
+body.dark-mode .reviews-section .reviews-summary .rating-number { color: #f1f5f9 !important; }
+body.dark-mode .review-card { background: #1e293b !important; }
+body.dark-mode .review-meta strong { color: #f1f5f9 !important; }
+body.dark-mode .review-comment { color: #94a3b8 !important; }
+body.dark-mode .review-date { color: #64748b !important; }
+
+/* Skills & Expertise chips */
+body.dark-mode .skill-chip { background: #1e3a5f !important; color: #93c5fd !important; }
+body.dark-mode .profile-section-card { background: #1e293b !important; }
+body.dark-mode .profile-section-card h3 { color: #f1f5f9 !important; }
+body.dark-mode .profile-section-card p  { color: #94a3b8 !important; }
+body.dark-mode .cert-item { color: #cbd5e1 !important; }
+body.dark-mode .cert-item i { color: #f59e0b !important; }
+
+/* "New Conversation" button/text in messages */
+body.dark-mode .btn-start-chat { background: linear-gradient(135deg,#1a3c5e,#2d6a9f) !important; color: #fff !important; }
+body.dark-mode .contacts-empty p { color: #94a3b8 !important; }
+body.dark-mode .contacts-empty-icon { background: #0f172a !important; color: #64748b !important; }
+body.dark-mode .chat-welcome-inner h2 { color: #f1f5f9 !important; }
+body.dark-mode .chat-welcome-inner p  { color: #94a3b8 !important; }
+
+/* Admin Feedback page */
+body.dark-mode .feedback-table-wrapper { background: #1e293b !important; border-radius: 16px; }
+body.dark-mode .feedback-stats { }
+body.dark-mode .feedback-stat-card { background: #1e293b !important; border: 1px solid #334155 !important; }
+body.dark-mode .feedback-stat-card .big-num   { color: #f1f5f9 !important; }
+body.dark-mode .feedback-stat-card .big-label { color: #94a3b8 !important; }
+body.dark-mode .stars-display i { color: #334155 !important; }
+body.dark-mode .stars-display i.filled { color: #f59e0b !important; }
+/* Feedback table comment and date cells */
+body.dark-mode .data-table td[style*="color:#6b7280"] { color: #94a3b8 !important; }
+body.dark-mode .data-table td[style*="color:#9ca3af"] { color: #64748b !important; }
+
+/* Admin Companies "Edit" button */
+body.dark-mode .btn-edit-sm { background: #1e3a5f !important; color: #93c5fd !important; border: 1px solid #334155 !important; }
+body.dark-mode .btn-edit-sm:hover { background: #60a5fa !important; color: #0f172a !important; }
+body.dark-mode .btn-delete-sm { background: #450a0a !important; color: #f87171 !important; }
+body.dark-mode .btn-delete-sm:hover { background: #dc2626 !important; color: #fff !important; }
+
+/* Admin general table inline styles override */
+body.dark-mode td span,
+body.dark-mode td strong { color: #cbd5e1 !important; }
+body.dark-mode .table-user span { color: #f1f5f9 !important; }
+
+/* Filter selects in dark mode */
+body.dark-mode .filter-select { background: #1e293b !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .results-count { color: #94a3b8 !important; }
+
+/* Btn-reset in dark mode */
+body.dark-mode .btn-reset { background: #1e293b !important; color: #94a3b8 !important; border: 1px solid #334155 !important; }
+body.dark-mode .btn-reset:hover { background: #334155 !important; color: #f1f5f9 !important; }
+
+/* ── Glitch/bug fixes ── */
+
+/* Prevent animation from re-running on every interaction */
+.welcome-banner, .stats-grid, .dashboard-grid,
+.page-header, .filter-bar, .booking-card,
+.profile-hero, .profile-tabs, .profile-content {
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+}
+
+/* Sidebar animation: none needed — transitions handle it */
+
+/* Fix input wrapper icon z-index glitch */
+.input-wrapper { isolation: isolate; }
+
+/* Fix dropdown z-index stacking */
+.notif-panel, .user-menu, .lang-dropdown,
+.faq-dropdown, .search-history-dropdown {
+    isolation: isolate;
+}
+
+/* Fix message action toolbar appearing behind bubbles */
+.message-wrapper { isolation: isolate; }
+.message-actions-toolbar { z-index: 10 !important; }
+
+/* Fix calendar day hover glitch */
+.calendar-day { transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease; }
+
+/* Fix dark mode body background flash */
+body { transition: background-color 0.3s ease, color 0.3s ease; }
+
+
+/* ============================================================
+   DARK MODE — TARGETED FIXES FOR ALL REPORTED ISSUES
+   (appended — uses !important to beat inline <style> blocks)
+   ============================================================ */
+
+/* ── Admin Dashboard KPI trend badges ("Active","Revenue","Growing","Pending") ── */
+body.dark-mode .admin-kpi-trend.up   { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .admin-kpi-trend.warn { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .admin-kpi-trend      { color: #f1f5f9 !important; }
+
+/* ── Admin KPI card backgrounds & text ── */
+body.dark-mode .admin-kpi-card  { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .admin-kpi-value { color: #f1f5f9 !important; }
+body.dark-mode .admin-kpi-label { color: #94a3b8 !important; }
+body.dark-mode .admin-kpi-sub   { color: #64748b !important; }
+body.dark-mode .admin-kpi-top   { }
+
+/* ── Admin Schedules info banner ── */
+body.dark-mode div[style*="background:#f0f7ff"][style*="border:1.5px solid #bfdbfe"] {
+    background: #1e3a5f !important;
+    border-color: #3b82f6 !important;
+}
+body.dark-mode div[style*="background:#f0f7ff"][style*="border:1.5px solid #bfdbfe"] span,
+body.dark-mode div[style*="background:#f0f7ff"][style*="border:1.5px solid #bfdbfe"] i {
+    color: #93c5fd !important;
+}
+
+/* ── Admin Appointments view-only notice ── */
+body.dark-mode .status-update-form[style*="background:#f0f7ff"] {
+    background: #1e3a5f !important;
+    border-color: #3b82f6 !important;
+}
+body.dark-mode .status-update-form[style*="background:#f0f7ff"] h4 { color: #93c5fd !important; }
+body.dark-mode .status-update-form[style*="background:#f0f7ff"] p  { color: #93c5fd !important; }
+
+/* ── Engineer Dashboard stat cards ("Total Jobs","Pending","Confirmed","Completed") ── */
+/* These classes are defined in an inline <style> inside engineer/dashboard.php */
+body.dark-mode .eng-stat-card   { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .eng-stat-value  { color: #f1f5f9 !important; }
+body.dark-mode .eng-stat-label  { color: #94a3b8 !important; }
+
+/* ── "Verified" status badge (payments, client dashboard) ── */
+body.dark-mode .status-badge.verified   { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .status-badge-lg.verified{ background: #052e16 !important; color: #4ade80 !important; }
+
+/* ── "Verified" stat label in admin/client payment pages ── */
+body.dark-mode .stat-label { color: #94a3b8 !important; }
+body.dark-mode .stat-value { color: #f1f5f9 !important; }
+body.dark-mode .stat-card  { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .stat-card .stat-icon { }
+
+/* ── Companies page — company name & engineer cards ── */
+body.dark-mode .company-list-item          { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .company-list-item:hover    { background: #334155 !important; }
+body.dark-mode .company-list-item.active   { background: rgba(45,106,159,0.25) !important; border-left-color: #60a5fa !important; }
+body.dark-mode .company-list-info strong   { color: #f1f5f9 !important; }
+body.dark-mode .company-list-info span     { color: #94a3b8 !important; }
+body.dark-mode .company-list-item i.fa-chevron-right { color: #475569 !important; }
+
+/* Company detail panel */
+body.dark-mode .company-detail            { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .company-profile-header    { border-color: #334155 !important; }
+body.dark-mode .company-profile-info h2   { color: #f1f5f9 !important; }
+body.dark-mode .company-meta span         { color: #94a3b8 !important; }
+body.dark-mode .company-meta i            { color: #64748b !important; }
+body.dark-mode .company-description h4    { color: #f1f5f9 !important; }
+body.dark-mode .company-description p     { color: #94a3b8 !important; }
+body.dark-mode .company-services h4       { color: #f1f5f9 !important; }
+body.dark-mode .company-engineers h4      { color: #f1f5f9 !important; }
+body.dark-mode .service-tag               { background: #1e3a5f !important; color: #93c5fd !important; }
+
+/* "Our Engineers" cards inside company detail */
+body.dark-mode .company-engineer-card          { background: #0f172a !important; border-color: #334155 !important; }
+body.dark-mode .company-engineer-card:hover    { background: #1e3a5f !important; border-color: #60a5fa !important; }
+body.dark-mode .ceng-info strong               { color: #f1f5f9 !important; }
+body.dark-mode .ceng-info span                 { color: #94a3b8 !important; }
+body.dark-mode .ceng-rating                    { color: #f59e0b !important; }
+body.dark-mode .btn-view-sm                    { background: #1e3a5f !important; color: #93c5fd !important; }
+body.dark-mode .btn-view-sm:hover              { background: #60a5fa !important; color: #0f172a !important; }
+
+/* Company placeholder */
+body.dark-mode .company-placeholder h3 { color: #94a3b8 !important; }
+body.dark-mode .company-placeholder p  { color: #64748b !important; }
+
+/* ── Messages — "New Conversation" icon/button ── */
+body.dark-mode .btn-new-chat {
+    background: #334155 !important;
+    color: #f1f5f9 !important;
+    border: 1px solid #475569 !important;
+}
+body.dark-mode .btn-new-chat:hover {
+    background: #60a5fa !important;
+    color: #0f172a !important;
+}
+
+/* "New Conversation" button in empty chat state */
+body.dark-mode .chat-welcome-inner .btn-primary {
+    background: linear-gradient(135deg, #1e40af, #2563eb) !important;
+    color: #fff !important;
+}
+
+/* "Message an Engineer" button */
+body.dark-mode .btn-start-chat {
+    background: linear-gradient(135deg, #1e40af, #2563eb) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* New chat drawer */
+body.dark-mode .new-chat-drawer-header span { color: #f1f5f9 !important; }
+body.dark-mode .new-chat-drawer-header button { color: #94a3b8 !important; background: transparent !important; border: none !important; }
+body.dark-mode .new-chat-drawer-header button:hover { color: #f87171 !important; }
+
+/* ── Payment page — "Verified" stat card ── */
+body.dark-mode .pay-stat-card  { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .pay-stat-value { color: #f1f5f9 !important; }
+body.dark-mode .pay-stat-label { color: #94a3b8 !important; }
+
+/* ── Admin Payments — "Verified" stat ── */
+body.dark-mode .stats-grid .stat-card { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .stats-grid .stat-value { color: #f1f5f9 !important; }
+body.dark-mode .stats-grid .stat-label { color: #94a3b8 !important; }
+
+/* ── Slot available/unavailable text in schedules ── */
+body.dark-mode .slot-available   { color: #4ade80 !important; }
+body.dark-mode .slot-unavailable { color: #f87171 !important; }
+
+/* ── Admin schedule info notice (inline style override) ── */
+body.dark-mode [style*="background:#f0f7ff"] {
+    background: #1e3a5f !important;
+}
+body.dark-mode [style*="color:#1e40af"],
+body.dark-mode [style*="color:#3b82f6"] {
+    color: #93c5fd !important;
+}
+body.dark-mode [style*="color:#6b7280"] { color: #94a3b8 !important; }
+body.dark-mode [style*="color:#9ca3af"] { color: #64748b !important; }
+body.dark-mode [style*="color:#1a1a2e"] { color: #f1f5f9 !important; }
+body.dark-mode [style*="color:#374151"] { color: #cbd5e1 !important; }
+body.dark-mode [style*="color:#4b5563"] { color: #94a3b8 !important; }
+body.dark-mode [style*="color:#1a3c5e"] { color: #60a5fa !important; }
+body.dark-mode [style*="background:#f8fafc"] { background: #0f172a !important; }
+body.dark-mode [style*="background:#f1f5f9"] { background: #1e293b !important; }
+body.dark-mode [style*="border-bottom:1px solid #f1f5f9"],
+body.dark-mode [style*="border-bottom: 1px solid #f1f5f9"] {
+    border-color: #334155 !important;
+}
+body.dark-mode [style*="border-top:1px solid #f1f5f9"],
+body.dark-mode [style*="border-top: 1px solid #f1f5f9"] {
+    border-color: #334155 !important;
+}
+
+/* ── Catch-all: any inline color that would be invisible on dark bg ── */
+/* These target the most common hardcoded dark colors used throughout the PHP files */
+body.dark-mode span[style*="color:#1a1a2e"],
+body.dark-mode div[style*="color:#1a1a2e"],
+body.dark-mode p[style*="color:#1a1a2e"],
+body.dark-mode strong[style*="color:#1a1a2e"] { color: #f1f5f9 !important; }
+
+body.dark-mode span[style*="color:#374151"],
+body.dark-mode div[style*="color:#374151"],
+body.dark-mode p[style*="color:#374151"] { color: #cbd5e1 !important; }
+
+body.dark-mode span[style*="color:#6b7280"],
+body.dark-mode div[style*="color:#6b7280"],
+body.dark-mode p[style*="color:#6b7280"] { color: #94a3b8 !important; }
+
+body.dark-mode span[style*="color:#9ca3af"],
+body.dark-mode div[style*="color:#9ca3af"],
+body.dark-mode p[style*="color:#9ca3af"] { color: #64748b !important; }
+
+body.dark-mode span[style*="font-weight:600"],
+body.dark-mode span[style*="font-weight:700"],
+body.dark-mode span[style*="font-weight:800"],
+body.dark-mode span[style*="font-weight:900"] { color: inherit; }
+
+/* ── Admin dashboard section headers ── */
+body.dark-mode .admin-section          { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .admin-section-header   { border-color: #334155 !important; }
+body.dark-mode .admin-section-header h3 { color: #f1f5f9 !important; }
+
+/* ── Admin nav buttons ── */
+body.dark-mode .admin-nav-btn          { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .admin-nav-btn span     { color: #cbd5e1 !important; }
+body.dark-mode .admin-nav-btn:hover    { border-color: #60a5fa !important; }
+
+/* ── Admin hero ── */
+body.dark-mode .admin-hero-text h1 { color: #fff !important; }
+body.dark-mode .admin-hero-text p  { color: rgba(255,255,255,0.7) !important; }
+body.dark-mode .admin-hero-time strong { color: #fff !important; }
+body.dark-mode .admin-hero-time span   { color: rgba(255,255,255,0.7) !important; }
+
+/* ── Engineer hero ── */
+body.dark-mode .eng-hero-info h1   { color: #fff !important; }
+body.dark-mode .eng-hero-info .eng-title { color: rgba(255,255,255,0.75) !important; }
+body.dark-mode .eng-hero-rating span { color: rgba(255,255,255,0.8) !important; }
+body.dark-mode .eng-hero-badge     { color: #fff !important; }
+
+/* ── Quick action grid ── */
+body.dark-mode .eng-quick-btn          { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .eng-quick-text strong  { color: #f1f5f9 !important; }
+body.dark-mode .eng-quick-text span    { color: #94a3b8 !important; }
+
+/* ── Engineer appointments table ── */
+body.dark-mode .eng-apt-table th { background: #0f172a !important; color: #64748b !important; border-color: #334155 !important; }
+body.dark-mode .eng-apt-table td { color: #cbd5e1 !important; border-color: #1e293b !important; }
+body.dark-mode .eng-apt-table tr:hover td { background: #334155 !important; }
+body.dark-mode .eng-apt-client strong { color: #f1f5f9 !important; }
+body.dark-mode .eng-apt-client span   { color: #94a3b8 !important; }
+
+/* ── Admin appointments table ── */
+body.dark-mode .admin-apt-table th { background: #0f172a !important; color: #64748b !important; border-color: #334155 !important; }
+body.dark-mode .admin-apt-table td { color: #cbd5e1 !important; border-color: #1e293b !important; }
+body.dark-mode .admin-apt-table tr:hover td { background: #334155 !important; }
+body.dark-mode .admin-user-cell span { color: #f1f5f9 !important; }
+
+/* ── Admin pending payments list ── */
+body.dark-mode .admin-pay-item         { border-color: #1e293b !important; }
+body.dark-mode .admin-pay-item:hover   { background: #334155 !important; }
+body.dark-mode .admin-pay-info strong  { color: #f1f5f9 !important; }
+body.dark-mode .admin-pay-info span    { color: #94a3b8 !important; }
+body.dark-mode .admin-pay-amount       { color: #60a5fa !important; }
+
+/* ── Dashboard card headers ── */
+body.dark-mode .dashboard-card { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .card-header    { border-color: #334155 !important; }
+body.dark-mode .card-header h3 { color: #f1f5f9 !important; }
+
+/* ── Engineer feedback page ── */
+body.dark-mode .eng-fb-hero-left h2 { color: #fff !important; }
+body.dark-mode .eng-fb-hero-left p  { color: rgba(255,255,255,0.7) !important; }
+body.dark-mode .eng-fb-hero-rating .big-score { color: #fff !important; }
+body.dark-mode .eng-fb-hero-rating .review-count { color: rgba(255,255,255,0.7) !important; }
+body.dark-mode .rating-breakdown    { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .rating-breakdown h3 { color: #f1f5f9 !important; }
+body.dark-mode .rating-bar-label    { color: #cbd5e1 !important; }
+body.dark-mode .rating-bar-track    { background: #334155 !important; }
+body.dark-mode .rating-bar-count    { color: #94a3b8 !important; }
+body.dark-mode .fb-card             { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .fb-client-info strong { color: #f1f5f9 !important; }
+body.dark-mode .fb-client-info span   { color: #94a3b8 !important; }
+body.dark-mode .fb-comment          { background: #0f172a !important; color: #cbd5e1 !important; border-left-color: #f59e0b !important; }
+body.dark-mode .fb-service-tag      { background: #1e3a5f !important; color: #93c5fd !important; }
+body.dark-mode .fb-meta             { color: #64748b !important; }
+body.dark-mode .fb-filter-bar       { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .fb-filter-bar label { color: #cbd5e1 !important; }
+body.dark-mode .fb-filter-select    { background: #0f172a !important; border-color: #334155 !important; color: #f1f5f9 !important; }
+body.dark-mode .fb-results-count    { color: #94a3b8 !important; }
+body.dark-mode .fb-empty h3         { color: #94a3b8 !important; }
+body.dark-mode .fb-empty p          { color: #64748b !important; }
+
+/* ── Admin profile page ── */
+body.dark-mode .admin-profile-card  { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .admin-profile-name  { color: #f1f5f9 !important; }
+body.dark-mode .admin-profile-meta  { border-color: #334155 !important; }
+body.dark-mode .admin-profile-meta-item { color: #94a3b8 !important; }
+body.dark-mode .admin-profile-meta-item strong { color: #f1f5f9 !important; }
+body.dark-mode .admin-edit-card     { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .admin-edit-header   { border-color: #334155 !important; }
+body.dark-mode .admin-edit-header h3 { color: #f1f5f9 !important; }
+body.dark-mode .admin-edit-header p  { color: #94a3b8 !important; }
+body.dark-mode .photo-upload-section { background: #0f172a !important; border-color: #334155 !important; }
+body.dark-mode .photo-upload-hint   { color: #64748b !important; }
+body.dark-mode .admin-stat-mini     { background: #0f172a !important; border-color: #334155 !important; }
+body.dark-mode .admin-stat-mini .num { color: #f1f5f9 !important; }
+body.dark-mode .admin-stat-mini .lbl { color: #94a3b8 !important; }
+
+/* ── Ensure all <a> links inside dark cards are readable ── */
+body.dark-mode .admin-section-link  { background: #1e3a5f !important; color: #60a5fa !important; }
+body.dark-mode .admin-section-link:hover { background: #60a5fa !important; color: #0f172a !important; }
+
+/* ── Ensure filter tabs are readable ── */
+body.dark-mode .filter-tab          { color: #94a3b8 !important; }
+body.dark-mode .filter-tab.active,
+body.dark-mode .filter-tab:hover    { background: #334155 !important; color: #60a5fa !important; }
+body.dark-mode .filter-tabs         { background: #0f172a !important; }
+
+/* ── Ensure all status badges are readable ── */
+body.dark-mode .status-badge.pending    { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .status-badge.confirmed  { background: #1e3a5f !important; color: #60a5fa !important; }
+body.dark-mode .status-badge.completed  { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .status-badge.cancelled  { background: #450a0a !important; color: #f87171 !important; }
+body.dark-mode .status-badge.in_progress{ background: #2e1065 !important; color: #c084fc !important; }
+body.dark-mode .status-badge.verified   { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .status-badge.rejected   { background: #450a0a !important; color: #f87171 !important; }
+
+body.dark-mode .status-badge-lg.pending    { background: #451a03 !important; color: #fbbf24 !important; }
+body.dark-mode .status-badge-lg.confirmed  { background: #1e3a5f !important; color: #60a5fa !important; }
+body.dark-mode .status-badge-lg.completed  { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .status-badge-lg.cancelled  { background: #450a0a !important; color: #f87171 !important; }
+body.dark-mode .status-badge-lg.in_progress{ background: #2e1065 !important; color: #c084fc !important; }
+body.dark-mode .status-badge-lg.verified   { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .status-badge-lg.rejected   { background: #450a0a !important; color: #f87171 !important; }
+
+
+/* ============================================================
+   SYSTEM-WIDE ANIMATIONS — Modern & Professional
+   ============================================================ */
+
+/* Staggered card entrance */
+@keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(45,106,159,0.3); }
+    50%       { box-shadow: 0 0 0 8px rgba(45,106,159,0); }
+}
+
+/* Apply entrance animations to dashboard cards */
+.stat-card          { animation: cardEntrance 0.45s ease both; }
+.stat-card:nth-child(1) { animation-delay: 0.05s; }
+.stat-card:nth-child(2) { animation-delay: 0.10s; }
+.stat-card:nth-child(3) { animation-delay: 0.15s; }
+.stat-card:nth-child(4) { animation-delay: 0.20s; }
+
+.dashboard-card     { animation: cardEntrance 0.5s ease 0.1s both; }
+.admin-kpi-card     { animation: cardEntrance 0.45s ease both; }
+.admin-kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.admin-kpi-card:nth-child(2) { animation-delay: 0.10s; }
+.admin-kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.admin-kpi-card:nth-child(4) { animation-delay: 0.20s; }
+
+.engineer-card-page { animation: cardEntrance 0.4s ease both; }
+.rec-eng-card       { animation: cardEntrance 0.4s ease both; }
+.tracking-item      { animation: slideInLeft 0.35s ease both; }
+.admin-list-item    { animation: slideInLeft 0.35s ease both; }
+.contact-item       { animation: slideInLeft 0.3s ease both; }
+
+/* Sidebar nav items stagger */
+.nav-item { animation: slideInLeft 0.3s ease both; }
+.nav-item:nth-child(1)  { animation-delay: 0.02s; }
+.nav-item:nth-child(2)  { animation-delay: 0.04s; }
+.nav-item:nth-child(3)  { animation-delay: 0.06s; }
+.nav-item:nth-child(4)  { animation-delay: 0.08s; }
+.nav-item:nth-child(5)  { animation-delay: 0.10s; }
+.nav-item:nth-child(6)  { animation-delay: 0.12s; }
+.nav-item:nth-child(7)  { animation-delay: 0.14s; }
+.nav-item:nth-child(8)  { animation-delay: 0.16s; }
+
+/* Status badges pop in */
+.status-badge { animation: popIn 0.25s ease both; }
+
+/* Alert slide in from top */
+.alert { animation: slideInRight 0.35s ease both; }
+
+/* Smooth hover lift on all cards */
+.stat-card:hover,
+.dashboard-card:hover,
+.admin-kpi-card:hover,
+.engineer-card-page:hover,
+.rec-eng-card:hover,
+.fb-card:hover,
+.ep-card:hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+/* Button pulse on primary actions */
+.btn-primary:focus,
+.btn-auth-submit:focus,
+.ep-btn-book:focus {
+    animation: pulseGlow 1.5s ease infinite;
+}
+
+/* Smooth page transitions */
+.main-content {
+    animation: cardEntrance 0.4s ease both;
+}
+
+/* Table row hover slide */
+.data-table tbody tr,
+.admin-apt-table tbody tr,
+.eng-apt-table tbody tr {
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+.data-table tbody tr:hover,
+.admin-apt-table tbody tr:hover,
+.eng-apt-table tbody tr:hover {
+    transform: translateX(2px);
+}
+
+/* Notification toast slide in */
+.notif-toast {
+    animation: slideInRight 0.3s ease both !important;
+}
+
+/* Modal scale in */
+.modal-overlay .modal {
+    animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both !important;
+}
+
+/* ============================================================
+   DARK MODE — COMPREHENSIVE REMAINING FIXES
+   ============================================================ */
+
+/* Force ALL inline dark text colors to be readable */
+body.dark-mode [style*="color:#1a1a2e"],
+body.dark-mode [style*="color: #1a1a2e"] { color: #f1f5f9 !important; }
+body.dark-mode [style*="color:#374151"],
+body.dark-mode [style*="color: #374151"] { color: #cbd5e1 !important; }
+body.dark-mode [style*="color:#6b7280"],
+body.dark-mode [style*="color: #6b7280"] { color: #94a3b8 !important; }
+body.dark-mode [style*="color:#9ca3af"],
+body.dark-mode [style*="color: #9ca3af"] { color: #64748b !important; }
+body.dark-mode [style*="color:#4b5563"],
+body.dark-mode [style*="color: #4b5563"] { color: #94a3b8 !important; }
+body.dark-mode [style*="color:#1a3c5e"],
+body.dark-mode [style*="color: #1a3c5e"] { color: #60a5fa !important; }
+body.dark-mode [style*="color:#2d6a9f"],
+body.dark-mode [style*="color: #2d6a9f"] { color: #60a5fa !important; }
+
+/* Force inline background fixes */
+body.dark-mode [style*="background:#f8fafc"],
+body.dark-mode [style*="background: #f8fafc"],
+body.dark-mode [style*="background:#f1f5f9"],
+body.dark-mode [style*="background: #f1f5f9"],
+body.dark-mode [style*="background:#fff"],
+body.dark-mode [style*="background: #fff"],
+body.dark-mode [style*="background:white"],
+body.dark-mode [style*="background: white"] { background: #1e293b !important; }
+
+body.dark-mode [style*="background:#f0f7ff"],
+body.dark-mode [style*="background: #f0f7ff"] { background: #1e3a5f !important; }
+
+body.dark-mode [style*="background:#0f172a"],
+body.dark-mode [style*="background: #0f172a"] { background: #0f172a !important; }
+
+/* Border fixes */
+body.dark-mode [style*="border-bottom:1px solid #f1f5f9"],
+body.dark-mode [style*="border-bottom: 1px solid #f1f5f9"],
+body.dark-mode [style*="border-top:1px solid #f1f5f9"],
+body.dark-mode [style*="border-top: 1px solid #f1f5f9"],
+body.dark-mode [style*="border:1px solid #f1f5f9"],
+body.dark-mode [style*="border: 1px solid #f1f5f9"] { border-color: #334155 !important; }
+
+/* Admin view-only notice boxes */
+body.dark-mode div[style*="background:#f0f7ff"],
+body.dark-mode div[style*="background: #f0f7ff"] {
+    background: #1e3a5f !important;
+    border-color: #3b82f6 !important;
+}
+body.dark-mode div[style*="background:#f0f7ff"] *,
+body.dark-mode div[style*="background: #f0f7ff"] * { color: #93c5fd !important; }
+
+/* Inline font-weight spans that may be white-on-white */
+body.dark-mode span[style*="font-weight:800"],
+body.dark-mode span[style*="font-weight: 800"],
+body.dark-mode span[style*="font-weight:900"],
+body.dark-mode span[style*="font-weight: 900"],
+body.dark-mode span[style*="font-weight:700"],
+body.dark-mode span[style*="font-weight: 700"] { color: inherit; }
+
+/* Dashboard stat trend badges */
+body.dark-mode .stat-trend.up   { background: #052e16 !important; color: #4ade80 !important; }
+body.dark-mode .stat-trend.neutral { background: #1e293b !important; color: #94a3b8 !important; }
+body.dark-mode .stat-trend.down { background: #450a0a !important; color: #f87171 !important; }
+
+/* Payment mini items on client dashboard */
+body.dark-mode .payment-mini-item { background: #0f172a !important; border-color: #334155 !important; }
+body.dark-mode .pay-info strong   { color: #f1f5f9 !important; }
+body.dark-mode .pay-info span     { color: #94a3b8 !important; }
+body.dark-mode .pay-amount        { color: #60a5fa !important; }
+
+/* Appointment items on client dashboard */
+body.dark-mode .appointment-item  { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .apt-action        { background: #334155 !important; color: #f1f5f9 !important; }
+
+/* Quick action buttons */
+body.dark-mode .quick-action-btn  { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .quick-action-btn span { color: #f1f5f9 !important; }
+body.dark-mode .qa-icon           { }
+
+/* Welcome banner */
+body.dark-mode .welcome-banner    { background: linear-gradient(135deg,#0f2540,#1a3c5e) !important; }
+body.dark-mode .welcome-text h1,
+body.dark-mode .welcome-text p    { color: #fff !important; }
+
+/* Recommended engineers section */
+body.dark-mode .rec-engineers-section .rec-section-header h2 { color: #f1f5f9 !important; }
+body.dark-mode .rec-engineers-section .rec-section-header p  { color: #94a3b8 !important; }
+
+/* Admin hero */
+body.dark-mode .admin-hero { box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important; }
+
+/* Engineer hero */
+body.dark-mode .eng-hero { box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important; }
+
+/* Slots table in admin */
+body.dark-mode .slots-table { background: #1e293b !important; }
+body.dark-mode .slots-table th { background: #0f172a !important; color: #94a3b8 !important; border-color: #334155 !important; }
+body.dark-mode .slots-table td { color: #cbd5e1 !important; border-color: #334155 !important; }
+body.dark-mode .slots-table tr:hover td { background: #334155 !important; }
+
+/* Schedule filter */
+body.dark-mode .schedule-calendar-wrapper { background: #1e293b !important; border-color: #334155 !important; }
+body.dark-mode .schedule-filter label { color: #94a3b8 !important; }
+
+/* Feedback stats */
+body.dark-mode .feedback-stats { }
+body.dark-mode .stars-display i:not(.filled) { color: #334155 !important; }
+
+/* Admin profile page */
+body.dark-mode .admin-profile-cover { background: linear-gradient(135deg,#0f2540,#1a3c5e,#2d6a9f) !important; }
+
+/* Company map open link */
+body.dark-mode .company-map-open-link { background: #1e293b !important; border-color: #334155 !important; color: #60a5fa !important; }
+
+/* Filter bar */
+body.dark-mode .filter-bar { background: transparent !important; }
+
+/* Page header */
+body.dark-mode .page-header { background: transparent !important; }
+
+/* Chatbot widget toggle button */
+body.dark-mode .chatbot-widget-toggle { box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important; }
+
+/* Ensure all h1-h6 inside main-content are light */
+body.dark-mode .main-content h1,
+body.dark-mode .main-content h2,
+body.dark-mode .main-content h3,
+body.dark-mode .main-content h4,
+body.dark-mode .main-content h5,
+body.dark-mode .main-content h6 { color: #f1f5f9 !important; }
+
+/* Ensure all p inside cards are readable */
+body.dark-mode .dashboard-card p,
+body.dark-mode .stat-card p,
+body.dark-mode .admin-kpi-card p { color: #94a3b8 !important; }
+
+/* Fix white text on white background in any remaining inline styles */
+body.dark-mode strong { color: inherit; }
+body.dark-mode b      { color: inherit; }
